@@ -1,6 +1,7 @@
 const express = require("express")
 const ObjectId = require('mongodb').ObjectID;
 const db = require('../db')
+const { validateCreate } = require('../validators/employees')
 const employees = express.Router()
 
 employees.get('/', (req, res) => {
@@ -15,7 +16,7 @@ employees.get('/', (req, res) => {
     })
 })
 
-employees.post('/create', (req, res) => {
+employees.post('/create', validateCreate, (req, res) => {
     const manoloDB = db.getDb()
     const data = req.body
     
