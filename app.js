@@ -1,18 +1,21 @@
 const express = require('express')
 const bp = require('body-parser')
+const cors = require('cors')
 require('dotenv').config()
 
 const db = require('./db')
 const package = require('./package.json');
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
+app.use(cors())
+
 app.use('/employees', require('./routes/employees'))
 
-app.get('/', (req, res) => {
+app.get('/status', (req, res) => {
   const status = {
     status: 'Running',
     version: package.version,
